@@ -20,7 +20,7 @@ public class Q1929 {
             }
         }
 
-        for (int i = M; i < N; i++) {
+        for (int i = M; i <= N; i++) {
             if (A[i]) {
                 System.out.println(i);
             }
