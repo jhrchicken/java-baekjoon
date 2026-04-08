@@ -9,6 +9,7 @@ public class Q1325 {
 
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
@@ -38,9 +39,12 @@ public class Q1325 {
 
         for (int i = 1; i <= N; i++) {
             if (answer[i] == max) {
-                System.out.print(i + " ");
+                bw.write(i + " ");
             }
         }
+
+        bw.flush();
+        bw.close();
     }
 
     public static void BFS(int node) {
