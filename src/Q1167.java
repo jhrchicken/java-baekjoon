@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+/*
 public class Q1167 {
     static boolean visited[];
     static int[] distance;
@@ -75,3 +76,4 @@ class Edge {
         this.value = value;
     }
 }
+ */
