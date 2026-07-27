@@ -3,17 +3,14 @@ import java.util.Scanner;
 public class Q1546 {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
 
+        int N = sc.nextInt();
         int score[] = new int[N];
+        long max = 0;
+        long sum = 0;
         for (int i = 0; i < N; i++) {
             score[i] = sc.nextInt();
-        }
-
-        long sum = 0;
-        long max = 0;
-        for (int i = 0; i < N; i++) {
-            if (score[i] > max) {
+            if (max < score[i]) {
                 max = score[i];
             }
             sum += score[i];
