@@ -12,7 +12,6 @@ public class Q11659 {
             S[i + 1] = S[i] + sc.nextInt();
         }
 
-
         for (int i = 0; i < M; i++) {
             int start = sc.nextInt();
             int end = sc.nextInt();
