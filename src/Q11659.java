@@ -6,6 +6,7 @@ public class Q11659 {
         int N = sc.nextInt();
         int M = sc.nextInt();
 
+
         int S[] = new int[N + 1];
         S[0] = 0;
         for (int i = 0; i < N; i++) {
