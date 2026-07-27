@@ -5,9 +5,10 @@ public class Q11720 {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         String str = sc.next();
+        char[] arr = str.toCharArray();
         int sum = 0;
         for (int i = 0; i < N; i++) {
-            sum += str.charAt(i) - '0';
+            sum += arr[i] - '0';
         }
         System.out.println(sum);
     }
