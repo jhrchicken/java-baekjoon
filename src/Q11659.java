@@ -8,7 +8,6 @@ public class Q11659 {
 
 
         int S[] = new int[N + 1];
-        S[0] = 0;
         for (int i = 0; i < N; i++) {
             S[i + 1] = S[i] + sc.nextInt();
         }
