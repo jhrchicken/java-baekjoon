@@ -1,105 +1,47 @@
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.IOException;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class tmp {
-    static int checkArr[];
-    static int myArr[];
-    static int checkSecret;
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-    public static void main(String args[]) throws NumberFormatException, IOException {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(bf.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int A = Integer.parseInt(st.nextToken());
 
-        int S = Integer.parseInt(st.nextToken());
-        int P = Integer.parseInt(st.nextToken());
-        int result = 0;
-        char A[] = new char[S];
-        checkArr = new int[4];
-        myArr = new int[4];
-        checkSecret = 0;
-        A = bf.readLine().toCharArray();
-        st = new StringTokenizer(bf.readLine());
-        for (int i = 0; i < 4; i++) {
-            checkArr[i] = Integer.parseInt(st.nextToken());
-            if (checkArr[i] == 0) {
-                checkSecret++;
+        st = new StringTokenizer(br.readLine());
+        Deque<Node> mydeque = new LinkedList<>();
+        for (int i = 0; i < N; i++) {
+            int now = Integer.parseInt(st.nextToken());
+
+            while (!mydeque.isEmpty() && mydeque.getLast().value > now) {
+                mydeque.removeLast();
             }
-        }
-        for (int i = 0;  i < P; i++) {
-            Add(A[i]);
-        }
-        if (checkSecret == 4) {
-            result++;
-        }
+            mydeque.addLast(new Node(now, i));
 
-        for (int i = 0; i < S - P; i++) {
-            Add(A[i + P]);
-            Remove(A[i]);
-            if (checkSecret == 4) {
-                result++;
+            if (mydeque.getFirst().index < i - A + 1) {
+                mydeque.removeFirst();
             }
+            bw.write(mydeque.getFirst().value + " ");
         }
-        System.out.println(result);
-        bf.close();
+        bw.flush();
+        bw.close();
     }
 
-    private static void Add(char c) {
-        switch (c) {
-            case 'A' :
-                myArr[0]++;
-                if (myArr[0] == checkArr[0]) {
-                    checkSecret++;
-                }
-                break;
-            case 'C' :
-                myArr[1]++;
-                if (myArr[1] == checkArr[1]) {
-                    checkSecret++;
-                }
-                break;
-            case 'G' :
-                myArr[2]++;
-                if (myArr[2] == checkArr[2]) {
-                    checkSecret++;
-                }
-                break;
-            case 'T' :
-                myArr[3]++;
-                if (myArr[3] == checkArr[3]) {
-                    checkSecret++;
-                }
-                break;
-        }
-    }
+    static class Node {
+        public int value;
+        public int index;
 
-    private static void Remove(char c) {
-        switch (c) {
-            case 'A' :
-                if (myArr[0] == checkArr[0]) {
-                    checkSecret--;
-                }
-                myArr[0]--;
-                break;
-            case 'C' :
-                if (myArr[1] == checkArr[1]) {
-                    checkSecret--;
-                }
-                myArr[1]--;
-                break;
-            case 'G' :
-                if (myArr[2] == checkArr[2]) {
-                    checkSecret--;
-                }
-                myArr[2]--;
-                break;
-            case 'T' :
-                if (myArr[3] == checkArr[3]) {
-                    checkSecret--;
-                }
-                myArr[3]--;
-                break;
+        Node(int value, int index) {
+            this.value = value;
+            this.index = index;
         }
     }
 }
