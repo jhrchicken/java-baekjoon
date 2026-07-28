@@ -1,36 +1,40 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Q1940 {
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
-        int A[] = new int[N];
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
+        int N = Integer.parseInt(br.readLine());
+        int M = Integer.parseInt(br.readLine());
+        int startIdx = 0;
+        int endIdx = N - 1;
+        int count = 0;
+        int[] A = new int[N];
+
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            A[i] = sc.nextInt();
+            A[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(A);
 
-        int count = 0;
-        int start_index = 0;
-        int end_index = N - 1;
-
-        while (start_index < end_index) {
-            if (A[start_index] + A[end_index] < M) {
-                start_index++;
+        while (startIdx < endIdx) {
+            if (A[startIdx] + A[endIdx] == M) {
+                count++;
+                startIdx++;
+                endIdx--;
             }
-            else if (A[start_index] + A[end_index] > M) {
-                end_index--;
+            else if (A[startIdx] + A[endIdx] < M) {
+                startIdx++;
             }
             else {
-                count++;
-                start_index++;
-                end_index--;
+                endIdx--;
             }
         }
-
         System.out.println(count);
     }
 }
