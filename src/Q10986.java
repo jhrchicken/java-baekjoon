@@ -8,6 +8,7 @@ public class Q10986 {
         int[] S = new int[N + 1];
         int[] C = new int[M];
         int answer = 0;
+
         for (int i = 1; i <= N; i++) {
             // 입력을 받으면서 수열 합 배열에 % 연산 수행
             S[i] = (S[i - 1] + sc.nextInt()) % M;
