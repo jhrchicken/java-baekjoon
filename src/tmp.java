@@ -1,47 +1,43 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.IOException;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.StringTokenizer;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class tmp {
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int A = Integer.parseInt(st.nextToken());
-
-        st = new StringTokenizer(br.readLine());
-        Deque<Node> mydeque = new LinkedList<>();
+        int[] A = new int[N];
         for (int i = 0; i < N; i++) {
-            int now = Integer.parseInt(st.nextToken());
-
-            while (!mydeque.isEmpty() && mydeque.getLast().value > now) {
-                mydeque.removeLast();
-            }
-            mydeque.addLast(new Node(now, i));
-
-            if (mydeque.getFirst().index < i - A + 1) {
-                mydeque.removeFirst();
-            }
-            bw.write(mydeque.getFirst().value + " ");
+            A[i] = sc.nextInt();
         }
-        bw.flush();
-        bw.close();
-    }
 
-    static class Node {
-        public int value;
-        public int index;
+        Stack<Integer> stack = new Stack<>();
+        StringBuffer bf = new StringBuffer();
+        int num = 1;
+        boolean result = true;
+        for (int i = 0; i < A.length; i++) {
+            if (A[i] >= num) {
+                while (A[i] >= num) {
+                    stack.push(num++);
+                    bf.append("+\n");
+                }
+                stack.pop();
+                bf.append("-\n");
+            }
+            else {
+                if (stack.pop() > A[i]) {
+                    System.out.println("NO");
+                    result = false;
+                    break;
+                }
+                else {
+                    bf.append("-\n");
+                }
+            }
+        }
 
-        Node(int value, int index) {
-            this.value = value;
-            this.index = index;
+        if (result) {
+            System.out.println(bf.toString());
         }
     }
 }
