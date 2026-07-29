@@ -1,37 +1,22 @@
-import java.io.*;
-import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 
 public class tmp {
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
 
-        int[] A = new int[N];
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            A[i] = Integer.parseInt(st.nextToken());
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 1; i <= N; i++) {
+            queue.add(i);
         }
 
-        int[] answer = new int[N];
-        Stack<Integer> stack = new Stack<>();
-        stack.push(0);
-        for (int i = 0; i < N; i++) {
-            while (!stack.isEmpty() && A[stack.peek()] < A[i]) {
-                answer[stack.pop()] = A[i];
-            }
-            stack.push(i);
-        }
-        while (!stack.isEmpty()) {
-            answer[stack.pop()] = -1;
+        while (queue.size() > 1) {
+            queue.poll();
+            queue.add(queue.poll());
         }
 
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        for (int i = 0; i < N; i++) {
-            bw.write(answer[i] + " ");
-        }
-        bw.write("\n");
-        bw.flush();
+        System.out.println(queue.poll());
     }
 }
