@@ -1,43 +1,37 @@
-import java.util.Scanner;
+import java.io.*;
 import java.util.Stack;
+import java.util.StringTokenizer;
 
 public class tmp {
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
 
         int[] A = new int[N];
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            A[i] = sc.nextInt();
+            A[i] = Integer.parseInt(st.nextToken());
         }
 
+        int[] answer = new int[N];
         Stack<Integer> stack = new Stack<>();
-        StringBuffer bf = new StringBuffer();
-        int num = 1;
-        boolean result = true;
-        for (int i = 0; i < A.length; i++) {
-            if (A[i] >= num) {
-                while (A[i] >= num) {
-                    stack.push(num++);
-                    bf.append("+\n");
-                }
-                stack.pop();
-                bf.append("-\n");
+        stack.push(0);
+        for (int i = 0; i < N; i++) {
+            while (!stack.isEmpty() && A[stack.peek()] < A[i]) {
+                answer[stack.pop()] = A[i];
             }
-            else {
-                if (stack.pop() > A[i]) {
-                    System.out.println("NO");
-                    result = false;
-                    break;
-                }
-                else {
-                    bf.append("-\n");
-                }
-            }
+            stack.push(i);
+        }
+        while (!stack.isEmpty()) {
+            answer[stack.pop()] = -1;
         }
 
-        if (result) {
-            System.out.println(bf.toString());
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        for (int i = 0; i < N; i++) {
+            bw.write(answer[i] + " ");
         }
+        bw.write("\n");
+        bw.flush();
     }
 }
